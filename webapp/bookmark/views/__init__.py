@@ -1,0 +1,2 @@
+from .bookmarkListCreateAPIView import BookmarkListCreateAPIView
+from .bookmarkRetrieveDestroyAPIView import BookmarkRetrieveDestroyAPIView
