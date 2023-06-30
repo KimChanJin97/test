@@ -27,15 +27,17 @@ class UserSerializer(WritableNestedModelSerializer):
         read_only_fields = ['id', 'kakaoId', 'thumbnail_image']
 
     def update(self, instance, validated_data):
-        univ_identifications_data = self.context['request'].FILES
-        instance.univ_identification.all().delete()
+        univ_identification_set = self.context['request'].FILES
+        if 'univ_identification' in univ_identification_set:
+            instance.univ_identification.all().delete()
 
-        for univ_identification_data in univ_identifications_data.values():
-            UserUnivIdentification.objects.create(user=instance, univ_identification=univ_identification_data)
-        return super().update(instance, validated_data)
+            for univ_identification_data in univ_identification_set.getlist('univ_identification'):
+                UserUnivIdentification.objects.create(user=instance, univ_identification=univ_identification_data)
+
+        instance.save()
+        return instance
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        univ_identifications = instance.univ_identification.all()
-        representation['univ_identification'] = UserUnivIdentificationSerializer(univ_identifications, many=True).data
+        representation['univ_identifications'] = UserUnivIdentificationSerializer(instance.univ_identification.all(), many=True).data
         return representation

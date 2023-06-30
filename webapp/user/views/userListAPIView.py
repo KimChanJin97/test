@@ -11,6 +11,7 @@ class UserListAPIView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         """
-        모든 유저 객체를 조회합니다.
+        [ 설명 ]
+        - 모든 user 객체를 조회합니다.
         """
         return self.list(request, *args, **kwargs)

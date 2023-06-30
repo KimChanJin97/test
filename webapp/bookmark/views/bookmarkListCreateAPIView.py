@@ -10,6 +10,8 @@ class BookmarkListCreateAPIView(ListCreateAPIView):
     ordering = ['id']
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Bookmark.objects.none()
         user_id = self.kwargs['user_id']
         queryset = Bookmark.objects.filter(user_id=user_id).order_by('id')
 

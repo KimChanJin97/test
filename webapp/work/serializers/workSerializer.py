@@ -54,7 +54,7 @@ class WorkSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # Update the fields of the instance
-        instance.description = validated_data.get('description', instance.description)
+        # instance.description = validated_data.get('description', instance.description)
 
         # Handle changes to the field field
         field_id = self.context['request'].data.get('field')

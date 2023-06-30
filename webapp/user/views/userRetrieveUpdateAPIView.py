@@ -19,6 +19,10 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
             return Response({"error": "존재하지 않는 유저입니다."})
 
     def get(self, request, *args, **kwargs):
+        """
+        [ 설명 ]
+        - 단일 user 객체를 조회합니다.
+        """
         return self.retrieve(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
@@ -27,10 +31,21 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return Response(serializer.data)
 
     def patch(self, request, *args, **kwargs):
+        """
+        [ 설명 ]
+        - 단일 user 객체를 수정합니다.
+        - 1차 로그인 이후 user 객체를 수정하는 함수입니다.
+        - 때문에 모든 필드는 Null=True 입니다.
+        """
         return self.partial_update(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
-
+        """
+        [ 설명 ]
+        - 단일 user 객체를 수정합니다.
+        - 1차 로그인 이후 user 객체를 수정하는 함수입니다.
+        - 때문에 모든 필드는 Null=True 입니다.
+        """
         return self.update(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):

@@ -10,11 +10,13 @@ from user.serializers import DjangoRegisterSerializer
 
 
 class DjangoRegisterAPIView(APIView):
-    """
-    email과 password 를 넣고 post 요청하면 해당 계정으로 회원가입시킵니다.
-    JWT 토큰(access 토큰과 refresh 토큰)을 할당합니다.
-    """
+
     def post(self, request):
+        """
+        [ 설명 ]
+        - email과 password 를 넣고 post 요청하면 해당 계정으로 회원가입시킵니다.
+        - 회원가입 이후 해당 유저의 access 토큰과 refresh 토큰을 응답에 실어 보냅니다.
+        """
         serializer = DjangoRegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
@@ -33,8 +35,8 @@ class DjangoRegisterAPIView(APIView):
                 },
                 status=status.HTTP_200_OK,
             )
-            #쿠키에 넣어주기...아직 어떤식으로 해야될지 모르겠는데 이렇게 설정만 우선 해주었다.
-            res.set_cookie("access", access_token, httponly=True)
-            res.set_cookie("refresh", refresh_token, httponly=True)
+            # 쿠키에 넣어주기...아직 어떤식으로 해야될지 모르겠는데 이렇게 설정만 우선 해주었다.
+            # res.set_cookie("access", access_token, httponly=True)
+            # res.set_cookie("refresh", refresh_token, httponly=True)
             return res
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

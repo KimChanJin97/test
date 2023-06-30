@@ -20,6 +20,11 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
             return Response({"error": "작업물이 존재하지 않습니다."})
 
     def get(self, request, *args, **kwargs):
+        """
+        ...
+        [ 설명 ]
+        - 단일 user 객체의 단일 portfolio 객체의 단일 work 객체를 반환합니다.
+        """
         return self.retrieve(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
@@ -28,6 +33,14 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ...
+        [ 설명 ]
+        - 단일 user 객체의 단일 portfolio 객체의 단일 work 객체를 수정합니다.
+        - form-data 로 patch 요청을 보내야 합니다.
+        - field 필드를 제외한 모든 필드는 Null=True 입니다.
+        - image 필드는 여러 개를 보낼 수 있습니다.
+        """
         return self.partial_update(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
@@ -35,6 +48,13 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         return self.update(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
+        """
+        [ 설명 ]
+        - 단일 user 객체의 단일 portfolio 객체의 단일 work 객체를 수정합니다.
+        - form-data 로 patch 요청을 보내야 합니다.
+        - field 필드를 제외한 모든 필드는 Null=True 입니다.
+        - image 필드는 여러 개를 보낼 수 있습니다.
+        """
         return self.update(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
@@ -68,6 +88,11 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         return Response(updated_serializer.data)
 
     def delete(self, request, *args, **kwargs):
+        """
+        [ 설명 ]
+        - localhost:8000/users/{user_id}/portfolios/{portfolio_id}/works/{work_id}
+        - 단일 user 객체의 단일 portfolio 객체의 단일 work 객체를 삭제합니다.
+        """
         return self.destroy(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):

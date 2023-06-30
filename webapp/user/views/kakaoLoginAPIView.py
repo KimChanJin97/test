@@ -15,12 +15,13 @@ from user.models import User
 @permission_classes([AllowAny, ])
 def kakaoGetLogin(request):
     """
-    프론트에서 카카오 로그인 버튼을 클릭
-    -> 카카오 로그인 화면으로 리다이렉트
-    -> 카카오 로그인
-    -> 사용자 정보 제공 동의
-    -> localhost:8000/user/kakao/callback 로 인가코드 전달
-    -> kakaoCallback() 함수 실행
+    [ 설명 ]
+    - 프론트에서 카카오 로그인 버튼을 클릭
+    - 카카오 로그인 화면으로 리다이렉트
+    - 카카오 로그인
+    - 클라이언트 정보 제공 동의
+    - localhost:8000/user/kakao/callback 로 인가코드 전달
+    - kakaoCallback() 함수 실행
     """
     CLIENT_ID = SOCIAL_OUTH_CONFIG['KAKAO_REST_API_KEY']
     REDIRET_URL = SOCIAL_OUTH_CONFIG['KAKAO_REDIRECT_URI']
@@ -32,9 +33,10 @@ def kakaoGetLogin(request):
 @permission_classes([AllowAny, ])
 def kakaoCallback(request):
     """
-    전달받은 인가코드 파싱
-    -> 인가코드를 사용하여 ACCESS TOKEN, REFRESH TOKEN 을 카카오 인증 서버에 post 요청
-    -> 카카오 인증 서버가 사용자 정보를 보내줌
+    [ 설명 ]
+    - 전달받은 인가코드 파싱
+    - 인가코드를 사용하여 ACCESS TOKEN, REFRESH TOKEN 을 카카오 인증 서버에 post 요청
+    - 카카오 인증 서버가 사용자 정보를 보내줌
     """
     url = "https://kauth.kakao.com/oauth/token"
     code = request.GET.get("code")

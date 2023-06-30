@@ -30,8 +30,10 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
     def patch(self, request, *args, **kwargs):
         """
-        - user객체가 하나 생성됨과 동시에 portfolio객체가 하나 생성되므로 post 요청은 없습니다.
-        - null 허용: kakaoId, thumbnail_image, email, phone_number, name, birth_date, job, univ, major, univ_identification
+        [ 설명 ]
+        - 단일 user 객체의 단일 portfolio 객체를 수정합니다.
+        - user객체가 하나 생성됨과 동시에 portfolio객체가 하나 생성되므로 모든 필드를 Null=True 로 해뒀습니다.
+        - user
         """
         return self.partial_update(request, *args, **kwargs)
 
@@ -40,6 +42,12 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return self.update(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
+        """
+        [ 설명 ]
+        -
+        -
+        -
+        """
         return self.update(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
