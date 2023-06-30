@@ -121,3 +121,4 @@ class UserUnivIdentification(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='univ_identification')
     univ_identification = models.ImageField(upload_to=image_upload_path)
+

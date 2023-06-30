@@ -34,8 +34,10 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         """
         [ 설명 ]
         - 단일 user 객체를 수정합니다.
+        - form-data 로 patch 요청을 보내야 합니다.
         - 1차 로그인 이후 user 객체를 수정하는 함수입니다.
         - 때문에 모든 필드는 Null=True 입니다.
+        - univ_identification 이미지는 여러 개 보낼 수 있습니다.
         """
         return self.partial_update(request, *args, **kwargs)
 
@@ -43,8 +45,10 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         """
         [ 설명 ]
         - 단일 user 객체를 수정합니다.
+        - form-data 로 put 요청을 보내야 합니다.
         - 1차 로그인 이후 user 객체를 수정하는 함수입니다.
         - 때문에 모든 필드는 Null=True 입니다.
+        - univ_identification 이미지는 여러 개 보낼 수 있습니다.
         """
         return self.update(request, *args, **kwargs)
 
