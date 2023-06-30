@@ -26,7 +26,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     # root
-    path('', allWorks),
+    path('all_works/', allWorks),
     # user
     path('users/', include('user.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

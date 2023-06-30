@@ -29,6 +29,10 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return Response(serializer.data)
 
     def patch(self, request, *args, **kwargs):
+        """
+        - user객체가 하나 생성됨과 동시에 portfolio객체가 하나 생성되므로 post 요청은 없습니다.
+        - null 허용: kakaoId, thumbnail_image, email, phone_number, name, birth_date, job, univ, major, univ_identification
+        """
         return self.partial_update(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
