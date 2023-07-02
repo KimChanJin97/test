@@ -12,7 +12,7 @@ class PortfolioListAPIView(ListAPIView):
     def get_queryset(self):
         user_id = self.kwargs['user_id']
         queryset = Portfolio.objects.filter(
-            user_id=user_id
+            user=user_id
         )
         return queryset
 

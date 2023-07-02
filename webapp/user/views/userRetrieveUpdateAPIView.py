@@ -13,7 +13,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     def get_object(self):
         user_id = self.kwargs['user_id']
         try:
-            return User.objects.get(user_id=user_id)
+            return User.objects.get(id=user_id)
         except User.DoesNotExist:
             return Response({"error": "유저가 존재하지 않습니다."})
 

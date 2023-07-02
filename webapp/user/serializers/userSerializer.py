@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['user_id', 'kakaoId', 'kakao_thumbnail_url', 'thumbnail_image', 'email', 'name', 'phone_number',
+        fields = ['id', 'kakaoId', 'kakao_thumbnail_url', 'thumbnail_image', 'email', 'name', 'phone_number',
                   'birth_date', 'field', 'job', 'univ', 'major', 'univ_identification', 'univ_email']
-        read_only_fields = ['user_id', 'kakaoId', 'email', 'kakao_thumbnail_url',]
+        read_only_fields = ['id', 'kakaoId', 'email', 'kakao_thumbnail_url',]
 

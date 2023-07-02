@@ -18,7 +18,7 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
         try:
             work = Work.objects.get(
-                portfolio__user__user_id=user_id,
+                portfolio__user=user_id,
                 portfolio_id=portfolio_id,
                 id=work_id
             )
@@ -64,7 +64,7 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         portfolio_id = self.kwargs['portfolio_id']
 
         portfolio = Portfolio.objects.get(
-            user__user_id=user_id,
+            user=user_id,
             id=portfolio_id
         )
         return portfolio

@@ -15,7 +15,7 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
         try:
-            return Portfolio.objects.get(id=portfolio_id, user_id=user_id)
+            return Portfolio.objects.get(id=portfolio_id, user=user_id)
         except Portfolio.DoesNotExist:
             return Response({"error": "존재하지 않는 포트폴리오입니다."})
 
@@ -48,6 +48,6 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         user_id = self.kwargs['user_id']
 
         user = User.objects.get(
-            user_id=user_id
+            id=user_id
         )
         return user
