@@ -17,8 +17,8 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
         queryset = Outsourcing.objects.filter(
-            portfolio__user__user_id=user_id,
-            portfolio_id=portfolio_id
+            portfolio__user=user_id,
+            portfolio=portfolio_id
         )
         return queryset
 
@@ -47,7 +47,7 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         portfolio_id = self.kwargs['portfolio_id']
 
         portfolio = Portfolio.objects.get(
-            user__user_id=user_id,
+            user=user_id,
             id=portfolio_id
         )
         return portfolio
@@ -57,8 +57,8 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         portfolio_id = self.kwargs['portfolio_id']
 
         exists = Outsourcing.objects.filter(
-            portfolio__user__user_id=user_id,
-            portfolio_id=portfolio_id
+            portfolio__user=user_id,
+            portfolio=portfolio_id
         ).exists()
 
         return exists

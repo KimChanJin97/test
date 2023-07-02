@@ -13,14 +13,14 @@ class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = OutsourcingSerializer
 
     def get_object(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
         outsourcing_id = self.kwargs['outsourcing_id']
 
         try:
             outsourcing = Outsourcing.objects.get(
-                portfolio__user__user_uuid=user_uuid,
-                portfolio_id=portfolio_id,
+                portfolio__user=user_id,
+                portfolio=portfolio_id,
                 id=outsourcing_id
             )
             return outsourcing
@@ -53,11 +53,11 @@ class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
 
         portfolio = Portfolio.objects.get(
-            user__user_uuid=user_uuid,
+            user=user_id,
             id=portfolio_id
         )
         return portfolio
