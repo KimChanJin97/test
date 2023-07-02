@@ -6,14 +6,16 @@ from outsourcing.models import Outsourcing
 class OutsourcingCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Outsourcing
-        fields = ['outsourcing',
+        fields = ['id',
+                  'portfolio',
                   'writer',
                   'comment',
                   'score',
                   'created_at',
                   ]
         read_only_fields = [
-            'outsourcing',
+            'id',
+            'portfolio',
             'writer',
             'created_at',
             'updated_at',

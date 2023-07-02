@@ -172,5 +172,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_superuser
 
-    # def __str__(self) -> str:
-    #     return f'{self.email}'
+    def __str__(self) -> str:
+        simplified_email = str(self.email).split('@')[0]
+        return f'{self.name}({simplified_email})'

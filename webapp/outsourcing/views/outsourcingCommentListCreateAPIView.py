@@ -1,0 +1,2 @@
+class OutsourcingCommentListCreateAPIView():
+    pass

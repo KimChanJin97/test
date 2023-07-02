@@ -47,6 +47,7 @@ INTERESTS = ((FRONTEND, 'FRONTEND'),
              (FINE_ART, 'FINE_ART'),
              )
 
+
 class Outsourcing(TimeStampModel):
     EDITABLE_COUNT_CHOICE = [
         (1, "1"),
@@ -66,12 +67,6 @@ class Outsourcing(TimeStampModel):
         verbose_name = 'Outsourcing'
         verbose_name_plural = 'Outsourcing'
 
-    user = models.ForeignKey(
-        'user.User',
-        verbose_name="유저",
-        on_delete=models.CASCADE,
-        null=False,
-    )
     portfolio = models.ForeignKey(
         'portfolio.Portfolio',
         verbose_name="포트폴리오",
@@ -81,7 +76,7 @@ class Outsourcing(TimeStampModel):
     field = models.CharField(
         choices=INTERESTS,
         verbose_name="외주 분야",
-        max_length=255,
+        max_length=500,
         null=False,
     )
     original_file_provided = models.BooleanField(

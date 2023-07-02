@@ -63,7 +63,7 @@ class Work(TimeStampModel):
     field = models.CharField(
         choices=INTERESTS,
         verbose_name="작업 분야",
-        max_length=20,
+        max_length=500,
         null=False,
     )
     description = models.TextField(

@@ -21,7 +21,7 @@ class WorkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Work
         fields = ['id', 'portfolio', 'images', 'field', 'description', 'created_at']
-        read_only_fields = ['id', 'portfolio', 'field', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'portfolio', 'created_at', 'updated_at']
 
     def create(self, validated_data):
         instance = Work.objects.create(**validated_data)
@@ -39,6 +39,7 @@ class WorkSerializer(serializers.ModelSerializer):
             for image_data in image_set.getlist('image'):
                 WorkImage.objects.create(work=instance, image=image_data)
 
+        # update 오버라이딩했기 때문에 다른 필드들도 로직에 들어가야 함
         instance.field = validated_data.get('field', instance.field)
         instance.description = validated_data.get('description', instance.description)
 

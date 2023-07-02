@@ -22,19 +22,16 @@ class OutsourcingComment(TimeStampModel):
         on_delete=models.CASCADE,
         null=False,
     )
-
     writer = models.ForeignKey(
         'user.User',
         verbose_name="댓글 작성자",
         on_delete=models.CASCADE,
         null=False,
     )
-
     comment = models.TextField(
         verbose_name="댓글",
         null=False,
     )
-
     score = models.IntegerField(
         verbose_name="외주 평점",
         choices=SCORE_CHOICE,
