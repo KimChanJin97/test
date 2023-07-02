@@ -1,8 +1,10 @@
 from rest_framework.generics import ListCreateAPIView
-
-from outsourcing.serializers import OutsourcingSerializer
-from outsourcing.models import Outsourcing
 from rest_framework.response import Response
+
+from outsourcing.models import Outsourcing
+from outsourcing.serializers import OutsourcingSerializer
+from portfolio.models import Portfolio
+
 
 class OutsourcingListCreateAPIView(ListCreateAPIView):
     serializer_class = OutsourcingSerializer
@@ -12,10 +14,10 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         if getattr(self, "swagger_fake_view", False):
             return Outsourcing.objects.none()
 
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
         queryset = Outsourcing.objects.filter(
-            portfolio__user__user_uuid=user_uuid,
+            portfolio__user__user_id=user_id,
             portfolio_id=portfolio_id
         )
         return queryset
@@ -37,25 +39,25 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         return self.create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        outsourcing = self.get_outsourcing()
-        serializer.save(outsourcing=outsourcing)
+        portfolio = self.get_portfolio()
+        serializer.save(portfolio=portfolio)
 
-    def get_outsourcing(self):
-        user_uuid = self.kwargs['user_uuid']
+    def get_portfolio(self):
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
 
-        outsourcing = Outsourcing.objects.get(
-            user__user_uuid=user_uuid,
+        portfolio = Portfolio.objects.get(
+            user__user_id=user_id,
             id=portfolio_id
         )
-        return outsourcing
+        return portfolio
 
     def check_outsourcing_exists(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
 
         exists = Outsourcing.objects.filter(
-            user__user_uuid=user_uuid,
+            portfolio__user__user_id=user_id,
             portfolio_id=portfolio_id
         ).exists()
 

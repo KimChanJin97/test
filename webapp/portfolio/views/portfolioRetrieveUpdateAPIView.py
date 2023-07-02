@@ -12,10 +12,10 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = PortfolioSerializer
 
     def get_object(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
         try:
-            return Portfolio.objects.get(id=portfolio_id, user_id=user_uuid)
+            return Portfolio.objects.get(id=portfolio_id, user_id=user_id)
         except Portfolio.DoesNotExist:
             return Response({"error": "존재하지 않는 포트폴리오입니다."})
 
@@ -45,9 +45,9 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer.save(user=user)
 
     def get_user(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
 
         user = User.objects.get(
-            user_uuid=user_uuid
+            user_id=user_id
         )
         return user

@@ -1,7 +1,7 @@
 from django.urls import path
 from outsourcing.views import OutsourcingListCreateAPIView, OutsourcingRetrieveUpdateAPIView
 
-app_name = 'work'
+app_name = 'outsourcing'
 
 urlpatterns = [
     path("", OutsourcingListCreateAPIView.as_view()),

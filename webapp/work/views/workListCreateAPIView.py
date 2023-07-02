@@ -13,10 +13,10 @@ class WorkListCreateAPIView(ListCreateAPIView):
         if getattr(self, "swagger_fake_view", False):
             return Work.objects.none()
 
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
         queryset = Work.objects.filter(
-            portfolio__user__user_uuid=user_uuid,
+            portfolio__user__user_id=user_id,
             portfolio_id=portfolio_id
         )
         return queryset
@@ -40,11 +40,11 @@ class WorkListCreateAPIView(ListCreateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
 
         portfolio = Portfolio.objects.get(
-            user__user_uuid=user_uuid,
+            user__user_id=user_id,
             id=portfolio_id
         )
         return portfolio

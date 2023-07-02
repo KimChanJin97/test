@@ -7,13 +7,13 @@ from user.serializers import UserSerializer
 
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     queryset = User.objects.all()
-    lookup_url_kwarg = "user_uuid"
+    lookup_url_kwarg = "user_id"
     serializer_class = UserSerializer
 
     def get_object(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         try:
-            return User.objects.get(user_uuid=user_uuid)
+            return User.objects.get(user_id=user_id)
         except User.DoesNotExist:
             return Response({"error": "유저가 존재하지 않습니다."})
 

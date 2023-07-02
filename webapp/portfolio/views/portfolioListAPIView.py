@@ -10,9 +10,9 @@ class PortfolioListAPIView(ListAPIView):
     ordering = ['id']
 
     def get_queryset(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         queryset = Portfolio.objects.filter(
-            user_id=user_uuid
+            user_id=user_id
         )
         return queryset
 

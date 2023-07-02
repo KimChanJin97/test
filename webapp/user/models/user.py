@@ -1,68 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from multiselectfield import MultiSelectField
-import uuid
-
-STUDENT = 0
-TEENAGER = 1
-EMPLOYEE = 2
-FREELANCER = 3
-START_UP = 4
-JOB_SEEKER = 5
-ETC = 6
-
-JOB_CHOICES = ((STUDENT, 'student'),
-               (TEENAGER, 'teenager'),
-               (EMPLOYEE, 'employee'),
-               (FREELANCER, 'freelancer'),
-               (START_UP, 'start_up'),
-               (JOB_SEEKER, 'job_seeker'),
-               (ETC, 'etc'))
-
-FRONTEND = 0
-HOMEPAGE = 1
-APPLICATION = 2
-GAME = 3
-BACKEND = 4
-DATA = 5
-WEB_MOBILE_DESIGN = 6
-VISUAL_DESIGN = 7
-LOGO_BRAND_DESIGN = 8
-PACKAGE_DESIGN = 9
-PRODUCT_DESIGN = 10
-CONSTRUCTION_DESIGN = 11
-INTERIOR_DESIGN = 12
-EXHIBITION_DESIGN = 13
-FASHION_DESIGN = 14
-JEWERLY_DESIGN = 15
-FABRIC_DESIGN = 16
-INDUSTRIAL_DESIGN = 17
-MEDIA_DESIGN = 18
-MOTION_GRAPHIC = 19
-FINE_ART = 20
-
-INTERESTS = ((FRONTEND, 'FRONTEND'),
-             (HOMEPAGE, 'HOMEPAGE'),
-             (APPLICATION, 'APPLICATION'),
-             (GAME, 'GAME'),
-             (BACKEND, 'BACKEND'),
-             (DATA, 'DATA'),
-             (WEB_MOBILE_DESIGN, 'WEB_MOBILE_DESIGN'),
-             (VISUAL_DESIGN, 'VISUAL_DESIGN'),
-             (LOGO_BRAND_DESIGN, 'LOGO_BRAND_DESIGN'),
-             (PACKAGE_DESIGN, 'PACKAGE_DESIGN'),
-             (PRODUCT_DESIGN, 'PRODUCT_DESIGN'),
-             (CONSTRUCTION_DESIGN, 'CONSTRUCTION_DESIGN'),
-             (INTERIOR_DESIGN, 'INTERIOR_DESIGN'),
-             (EXHIBITION_DESIGN, 'EXHIBITION_DESIGN'),
-             (FASHION_DESIGN, 'FASHION_DESIGN'),
-             (JEWERLY_DESIGN, 'JEWERLY_DESIGN'),
-             (FABRIC_DESIGN, 'FABRIC_DESIGN'),
-             (INDUSTRIAL_DESIGN, 'INDUSTRIAL_DESIGN'),
-             (MEDIA_DESIGN, 'MEDIA_DESIGN'),
-             (MOTION_GRAPHIC, 'MOTION_GRAPHIC'),
-             (FINE_ART, 'FINE_ART'),
-             )
+from core.choices import JOB_CHOICES, INTERESTS
 
 
 class UserManager(BaseUserManager):
@@ -92,12 +31,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
-    user_uuid = models.UUIDField(
-        verbose_name="유저 고유번호",
-        primary_key=True,
-        null=False,
-        default=uuid.uuid4
-    )
     kakaoId = models.IntegerField(
         verbose_name="카카오 id",
         null=True,
@@ -108,7 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
     )
     thumbnail_image = models.ImageField(
-        verbose_name="일반 유저 썸네일 이미지"
+        verbose_name="일반 유저 썸네일 이미지",
+        null=True,
     )
     email = models.CharField(
         verbose_name="카카오 이메일",
@@ -172,6 +106,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_superuser
 
-    def __str__(self) -> str:
-        simplified_email = str(self.email).split('@')[0]
-        return f'{self.name}({simplified_email})'
+    # def __str__(self) -> str:
+    #     simplified_email = str(self.email).split('@')[0]
+    #     return f'{self.name}({simplified_email})'

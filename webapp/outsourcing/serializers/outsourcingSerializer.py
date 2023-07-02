@@ -6,7 +6,8 @@ from outsourcing.models import Outsourcing
 class OutsourcingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Outsourcing
-        fields = ['portfolio',
+        fields = ['id',
+                  'portfolio',
                   'field',
                   'original_file_provided',
                   'commercial_use_allowed',
@@ -20,6 +21,7 @@ class OutsourcingSerializer(serializers.ModelSerializer):
                   'promotion_text',
                   'created_at']
         read_only_fields = [
+            'id',
             'portfolio',
             'created_at',
             'updated_at'

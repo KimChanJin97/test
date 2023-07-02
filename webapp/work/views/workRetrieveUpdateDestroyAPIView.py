@@ -12,13 +12,13 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = WorkSerializer
 
     def get_object(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
         work_id = self.kwargs['work_id']
 
         try:
             work = Work.objects.get(
-                portfolio__user__user_uuid=user_uuid,
+                portfolio__user__user_id=user_id,
                 portfolio_id=portfolio_id,
                 id=work_id
             )
@@ -60,11 +60,11 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        user_uuid = self.kwargs['user_uuid']
+        user_id = self.kwargs['user_id']
         portfolio_id = self.kwargs['portfolio_id']
 
         portfolio = Portfolio.objects.get(
-            user__user_uuid=user_uuid,
+            user__user_id=user_id,
             id=portfolio_id
         )
         return portfolio
