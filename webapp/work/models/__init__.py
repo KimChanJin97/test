@@ -1,1 +1,1 @@
-from .work import Work, WorkImage
+from .work import Work, WorkImage, INTERESTS

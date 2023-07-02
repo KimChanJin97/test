@@ -1,3 +1,3 @@
 from .djangoLoginSerializer import DjangoLoginSerializer
 from .djangoRegisterSerializer import DjangoRegisterSerializer
-from .userSerializer import UserSerializer, UserUnivIdentificationSerializer
+from .userSerializer import UserSerializer

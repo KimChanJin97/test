@@ -3,6 +3,9 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 from user.views import kakaoCallback, kakaoGetLogin, UserRetrieveUpdateAPIView, UserListAPIView, DjangoRegisterAPIView, DjangoLoginAPIView
 
+
+app_name = 'user'
+
 urlpatterns = [
     # kakao login
     path('kakao/login/', kakaoGetLogin),
@@ -13,9 +16,9 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view()),
     # user
     path('', UserListAPIView.as_view()),
-    path('<int:user_id>/', UserRetrieveUpdateAPIView.as_view()),
+    path('<uuid:user_uuid>/', UserRetrieveUpdateAPIView.as_view()),
     # user - bookmark
-    path('<int:user_id>/bookmarks/', include('bookmark.urls')),
+    path('<uuid:user_uuid>/bookmarks/', include('bookmark.urls')),
     # user - portfolio
-    path('<int:user_id>/portfolios/', include('portfolio.urls')),
+    path('<uuid:user_uuid>/portfolios/', include('portfolio.urls')),
 ]

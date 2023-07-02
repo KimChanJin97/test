@@ -4,9 +4,9 @@ from django.db import models
 
 class PortfolioAbility(models.Model):
     class Meta:
-        db_table = 'portfolio ability'
-        verbose_name = 'Portfolio Ability'
-        verbose_name_plural = 'Portfolio Abilities'
+        db_table = 'ability'
+        verbose_name = 'Ability'
+        verbose_name_plural = 'Abilities'
 
     portfolio = models.ForeignKey(
         'portfolio.Portfolio',
@@ -14,13 +14,11 @@ class PortfolioAbility(models.Model):
         on_delete=models.CASCADE,
         null=False,
     )
-
     ability = models.CharField(
         verbose_name='기술',
         max_length=10,
         null=False,
     )
-
     mastery = models.IntegerField(
         verbose_name='숙련도',
         validators=[MinValueValidator(0), MaxValueValidator(100)],

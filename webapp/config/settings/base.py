@@ -47,12 +47,12 @@ INSTALLED_APPS = [
     'user',
     'work',
     'outsourcing',
-    'field',
-    'tag',
     # drf jwt
     'rest_auth',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    # multiselect
+    'multiselectfield',
 ]
 
 REST_FRAMEWORK = {

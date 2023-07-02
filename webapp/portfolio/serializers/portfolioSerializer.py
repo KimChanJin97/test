@@ -6,8 +6,7 @@ from portfolio.models import Portfolio
 class PortfolioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Portfolio
-        fields = ['user',
-                  'representative_image',
+        fields = ['representative_image',
                   'description',
                   'certification',
                   'career',
@@ -15,5 +14,6 @@ class PortfolioSerializer(serializers.ModelSerializer):
                   'instagram',
                   'twitter']
         read_only_fields = [
-            'user'
+            'id',
+            'user',
         ]

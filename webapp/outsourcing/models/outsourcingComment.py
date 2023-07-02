@@ -1,7 +1,8 @@
 from django.db import models
+from core.models import TimeStampModel
 
 
-class OutsourcingComment(models.Model):
+class OutsourcingComment(TimeStampModel):
     SCORE_CHOICE = [
         (1, '1'),
         (2, '2'),
@@ -39,14 +40,4 @@ class OutsourcingComment(models.Model):
         choices=SCORE_CHOICE,
         default=3,
         null=False,
-    )
-
-    created_at = models.DateTimeField(
-        verbose_name="댓글 생성일시",
-        auto_now_add=True,
-    )
-
-    updated_at = models.DateTimeField(
-        verbose_name="댓글 수정일시",
-        auto_now=True,
     )

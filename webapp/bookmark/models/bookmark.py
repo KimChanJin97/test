@@ -1,7 +1,8 @@
 from django.db import models
+from core.models import TimeStampModel
 
 
-class Bookmark(models.Model):
+class Bookmark(TimeStampModel):
     class Meta:
         db_table = 'bookmark'
         verbose_name = 'Bookmark'

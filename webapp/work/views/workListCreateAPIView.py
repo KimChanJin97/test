@@ -1,8 +1,8 @@
 from rest_framework.generics import ListCreateAPIView
 
-from portfolio.models import Portfolio
 from work.models import Work
 from work.serializers import WorkSerializer
+from portfolio.models import Portfolio
 
 
 class WorkListCreateAPIView(ListCreateAPIView):
@@ -13,8 +13,12 @@ class WorkListCreateAPIView(ListCreateAPIView):
         if getattr(self, "swagger_fake_view", False):
             return Work.objects.none()
 
+        user_uuid = self.kwargs['user_uuid']
         portfolio_id = self.kwargs['portfolio_id']
-        queryset = Work.objects.filter(portfolio=portfolio_id)
+        queryset = Work.objects.filter(
+            portfolio__user__user_uuid=user_uuid,
+            portfolio_id=portfolio_id
+        )
         return queryset
 
     def get(self, request, *args, **kwargs):
@@ -28,9 +32,6 @@ class WorkListCreateAPIView(ListCreateAPIView):
         """
         [ 설명 ]
         - 단일 user 객체의 단일 portfolio 객체의 단일 work 객체를 생성합니다.
-        - form-data 로 post 요청을 보내야 합니다.
-        - field 필드를 제외한 모든 필드는 Null=True 입니다.
-        - image 필드는 여러 개를 보낼 수 있습니다.
         """
         return self.create(request, *args, **kwargs)
 
@@ -39,6 +40,11 @@ class WorkListCreateAPIView(ListCreateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
+        user_uuid = self.kwargs['user_uuid']
         portfolio_id = self.kwargs['portfolio_id']
-        portfolio = Portfolio.objects.get(id=portfolio_id)
+
+        portfolio = Portfolio.objects.get(
+            user__user_uuid=user_uuid,
+            id=portfolio_id
+        )
         return portfolio

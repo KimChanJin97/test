@@ -1,1 +1,1 @@
-from .user import User, UserUnivIdentification
+from .user import User, INTERESTS

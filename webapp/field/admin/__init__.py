@@ -1,1 +1,0 @@
-from .fieldAdmin import FieldAdmin

@@ -1,8 +1,9 @@
 from rest_framework.generics import ListCreateAPIView
-
+from rest_framework.response import Response
 from bookmark.models import Bookmark
 from bookmark.serializers import BookmarkSerializer
 from work.models import Work
+from user.models import User
 
 
 class BookmarkListCreateAPIView(ListCreateAPIView):
@@ -31,10 +32,10 @@ class BookmarkListCreateAPIView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         user = self.request.user
-        work = self.get_work()
-        serializer.save(user=user, work=work)
+        work_id = self.request.data.get('work')
+        try:
+            work = Work.objects.get(id=work_id)
+            serializer.save(user=user, work=work)
+        except Work.DoesNotExist:
+            return Response({"error": "존재하지 작업물입니다."})
 
-    def get_work(self):
-        work_id = self.kwargs['work_id']
-        work = Work.objects.get(pk=work_id)
-        return work
