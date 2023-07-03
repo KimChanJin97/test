@@ -11,7 +11,7 @@ class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
         if getattr(self, "swagger_fake_view", False):
             return OutsourcingComment.objects.none()
 
-        user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         outsourcing_id = self.kwargs['outsourcing_id']
 
@@ -25,14 +25,14 @@ class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체의 모든 comment 객체들을 조회합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 모든 comment 객체들을 조회합니다.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체의 단일 comment 객체를 생성합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 단일 comment 객체를 생성합니다.
         """
         return self.create(request, *args, **kwargs)
 
@@ -41,7 +41,7 @@ class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
         serializer.save(outsourcing=outsourcing, writer=self.response.user)
 
     def get_outsourcing(self):
-        user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         outsourcing_id = self.kwargs['outsourcing_id']
 

@@ -16,7 +16,7 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = WorkSerializer
 
     def get_object(self):
-        user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         work_id = self.kwargs['work_id']
 
