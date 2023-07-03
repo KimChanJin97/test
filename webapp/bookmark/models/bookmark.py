@@ -8,7 +8,7 @@ class Bookmark(TimeStampModel):
         verbose_name = 'Bookmark'
         verbose_name_plural = 'Bookmarks'
 
-    user = models.ForeignKey(
+    adder = models.ForeignKey(
         'user.User',
         verbose_name="유저",
         on_delete=models.CASCADE,

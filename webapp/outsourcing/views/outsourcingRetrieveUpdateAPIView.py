@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from outsourcing.models import Outsourcing
 from outsourcing.serializers import OutsourcingSerializer
 from portfolio.models import Portfolio
-from user.models import User
 
 
 class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
@@ -13,7 +12,8 @@ class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = OutsourcingSerializer
 
     def get_object(self):
-        user_id = self.kwargs['user_id']
+        # user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         outsourcing_id = self.kwargs['outsourcing_id']
 
@@ -53,7 +53,8 @@ class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        user_id = self.kwargs['user_id']
+        # user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
 
         portfolio = Portfolio.objects.get(

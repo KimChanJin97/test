@@ -12,6 +12,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
     def get_object(self):
         user_id = self.kwargs['user_id']
+        # user_id = self.request.user.id
         try:
             return User.objects.get(id=user_id)
         except User.DoesNotExist:

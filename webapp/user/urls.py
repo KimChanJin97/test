@@ -17,8 +17,4 @@ urlpatterns = [
     # user
     path('', UserListAPIView.as_view()),
     path('<int:user_id>/', UserRetrieveUpdateAPIView.as_view()),
-    # user - bookmark
-    path('<int:user_id>/bookmarks/', include('bookmark.urls')),
-    # user - portfolio
-    path('<int:user_id>/portfolios/', include('portfolio.urls')),
 ]

@@ -1,13 +1,14 @@
 from django.urls import path, include
-from portfolio.views import PortfolioRetrieveUpdateAPIView, PortfolioListAPIView
+from portfolio.views import PortfolioRetrieveUpdateAPIView, PortfolioListCreateAPIView
 
 app_name = 'portfolio'
 
 urlpatterns = [
-    path('', PortfolioListAPIView.as_view()),
+    # portfolio
+    path('', PortfolioListCreateAPIView.as_view()),
     path('<int:portfolio_id>/', PortfolioRetrieveUpdateAPIView.as_view()),
-    # user - work - portfolio
+    # portfolio - work
     path('<int:portfolio_id>/works/', include('work.urls')),
-    # user - work - outsourcing
+    # portfolio - outsourcing
     path('<int:portfolio_id>/outsourcings/', include('outsourcing.urls')),
 ]

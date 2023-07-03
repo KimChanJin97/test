@@ -6,6 +6,10 @@ from work.serializers import WorkSerializer
 from portfolio.models import Portfolio
 
 
+# localhost:8000/portfolios/{portfolio_id}/works/{work_id}
+# portfolio <FK>
+# field
+# description
 class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'work_id'
     queryset = Work.objects.all()
@@ -19,7 +23,7 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         try:
             work = Work.objects.get(
                 portfolio__user=user_id,
-                portfolio_id=portfolio_id,
+                portfolio=portfolio_id,
                 id=work_id
             )
             return work
@@ -60,11 +64,15 @@ class WorkRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        user_id = self.kwargs['user_id']
+        # user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
 
-        portfolio = Portfolio.objects.get(
-            user=user_id,
-            id=portfolio_id
-        )
-        return portfolio
+        try:
+            portfolio = Portfolio.objects.get(
+                user=user_id,
+                id=portfolio_id
+            )
+            return portfolio
+        except Portfolio.DoesNotExist:
+            return Response({"error": "포트폴리오가 존재하지 않습니다."})

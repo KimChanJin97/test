@@ -1,13 +1,12 @@
 from rest_framework import serializers
 
-from outsourcing.models import Outsourcing
+from outsourcing.models import OutsourcingComment
 
 
 class OutsourcingCommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Outsourcing
+        model = OutsourcingComment
         fields = ['id',
-                  'portfolio',
                   'writer',
                   'comment',
                   'score',
@@ -15,7 +14,6 @@ class OutsourcingCommentSerializer(serializers.ModelSerializer):
                   ]
         read_only_fields = [
             'id',
-            'portfolio',
             'writer',
             'created_at',
             'updated_at',

@@ -14,8 +14,10 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         if getattr(self, "swagger_fake_view", False):
             return Outsourcing.objects.none()
 
-        user_id = self.kwargs['user_id']
+        # user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
+
         queryset = Outsourcing.objects.filter(
             portfolio__user=user_id,
             portfolio=portfolio_id
@@ -31,10 +33,10 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         outsourcing_exists = self.check_outsourcing_exists()
         if outsourcing_exists:
-            return Response({"error": "외주는 한명당 1개만 생성할 수 있습니다."})
+            return Response({"error": "외주는 1개만 생성하여 관리해야 합니다."})
         """
         단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체를 생성합니다.
-        만약 외주 객체가 이미 존재하는데 post 요청을 할 경우 예외를 발생시킵니다.
+        만약 외주 객체 1개가 존재할 때 post 요청을 할 경우 예외를 발생시킵니다.
         """
         return self.create(request, *args, **kwargs)
 
@@ -43,7 +45,8 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        user_id = self.kwargs['user_id']
+        # user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
 
         portfolio = Portfolio.objects.get(
@@ -53,7 +56,8 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         return portfolio
 
     def check_outsourcing_exists(self):
-        user_id = self.kwargs['user_id']
+        # user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
 
         exists = Outsourcing.objects.filter(

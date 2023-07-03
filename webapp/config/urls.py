@@ -1,12 +1,14 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework import routers
-from django.conf import settings
-from django.conf.urls.static import static
-from work.views import allWorks
+
+from bookmark.views import RootBookmarkListAPIView, RootBookmarkRetrieveDestroyAPIView, RootBookmarkCreateAPIView
+from work.views import RootWorkRetrieveAPIView, RootWorkListAPIView
 
 # jazzmin settings
 routers = routers.DefaultRouter()
@@ -25,10 +27,18 @@ schema_view = get_schema_view(
 # project settings
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # root
-    path('all_works/', allWorks),
+    # root work
+    path('works/', RootWorkListAPIView.as_view()),
+    path('works/<int:work_id>', RootWorkRetrieveAPIView.as_view()),
+    # root work - root bookmark
+    path('works/<int:work_id>/bookmarks/', RootBookmarkCreateAPIView.as_view()),
+    path('works/<int:work_id>/bookmarks/<int:bookmark_id>', RootBookmarkRetrieveDestroyAPIView.as_view()),
+    # root bookmark
+    path('bookmarks/', RootBookmarkListAPIView.as_view()),
     # user
     path('users/', include('user.urls')),
+    # portfolio
+    path('portfolios/', include('portfolio.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

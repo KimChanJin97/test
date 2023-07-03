@@ -1,2 +1,2 @@
 from .portfolioRetrieveUpdateAPIView import PortfolioRetrieveUpdateAPIView
-from .portfolioListAPIView import PortfolioListAPIView
+from .portfolioListCreateAPIView import PortfolioListCreateAPIView

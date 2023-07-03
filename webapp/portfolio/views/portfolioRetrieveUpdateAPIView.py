@@ -6,13 +6,23 @@ from portfolio.serializers import PortfolioSerializer
 from user.models import User
 
 
+# localhost:8000/portfolios/{portfolio_id}
+# user <FK>
+# representative_image
+# description
+# certification
+# career
+# git
+# instagram
+# twitter
 class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     lookup_url_kwarg = 'portfolio_id'
     queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
 
     def get_object(self):
-        user_id = self.kwargs['user_id']
+        # user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         try:
             return Portfolio.objects.get(id=portfolio_id, user=user_id)
@@ -41,13 +51,6 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return self.update(request, *args, **kwargs)
 
     def perform_update(self, serializer):
-        user = self.get_user()
+        user = User.objects.get(id=self.request.user.id)
         serializer.save(user=user)
 
-    def get_user(self):
-        user_id = self.kwargs['user_id']
-
-        user = User.objects.get(
-            id=user_id
-        )
-        return user
