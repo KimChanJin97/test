@@ -38,14 +38,14 @@ class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         outsourcing = self.get_outsourcing()
-        serializer.save(outsourcing=outsourcing, writer=self.response.user)
+        serializer.save(outsourcing=outsourcing, writer=self.request.user)
 
     def get_outsourcing(self):
         user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         outsourcing_id = self.kwargs['outsourcing_id']
 
-        outsourcing = Outsourcing.objects.filter(
+        outsourcing = Outsourcing.objects.get(
             portfolio__user=user_id,
             portfolio=portfolio_id,
             id=outsourcing_id
