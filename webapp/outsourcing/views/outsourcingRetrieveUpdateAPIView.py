@@ -6,13 +6,14 @@ from outsourcing.serializers import OutsourcingSerializer
 from portfolio.models import Portfolio
 
 
+# portfolios/ <int:portfolio_id>/outsourcings/ <int:outsourcing_id>/
+# portfolio FK
 class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     lookup_url_kwarg = 'outsourcing_id'
     queryset = Outsourcing.objects.all()
     serializer_class = OutsourcingSerializer
 
     def get_object(self):
-        # user_id = self.kwargs['user_id']
         user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         outsourcing_id = self.kwargs['outsourcing_id']
@@ -30,21 +31,21 @@ class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     def get(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체를 조회합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체를 조회합니다.
         """
         return self.retrieve(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체를 수정합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체를 수정합니다.
         """
         return self.partial_update(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체를 수정합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체를 수정합니다.
         """
         return self.update(request, *args, **kwargs)
 

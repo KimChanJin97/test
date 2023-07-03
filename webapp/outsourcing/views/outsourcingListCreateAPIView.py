@@ -6,6 +6,9 @@ from outsourcing.serializers import OutsourcingSerializer
 from portfolio.models import Portfolio
 
 
+
+# portfolios/ <int:portfolio_id>/outsourcings/
+# portfolio FK
 class OutsourcingListCreateAPIView(ListCreateAPIView):
     serializer_class = OutsourcingSerializer
     ordering = ['id']
@@ -14,7 +17,6 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         if getattr(self, "swagger_fake_view", False):
             return Outsourcing.objects.none()
 
-        # user_id = self.kwargs['user_id']
         user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
 

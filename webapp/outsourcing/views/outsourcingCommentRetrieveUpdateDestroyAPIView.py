@@ -4,32 +4,36 @@ from rest_framework.response import Response
 from outsourcing.models import Outsourcing, OutsourcingComment
 from outsourcing.serializers import OutsourcingCommentSerializer
 
+
+# portfolios/{portfolio_id}/outsourcings/{outsourcing_id}/outsourcing_comments/{outsourcing_comment_id}
 # outsourcing FK
 # writer FK
 class OutsourcingCommentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'outsourcing_comment_id'
-    queryset = OutsourcingComment.objects.all()
+    queryset = Outsourcing.objects.all()
     serializer_class = OutsourcingCommentSerializer
 
-    def get_queryset(self):
+    def get_object(self):
         user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
         outsourcing_id = self.kwargs['outsourcing_id']
+        outsourcing_comment_id = self.kwargs['outsourcing_comment_id']
 
         try:
             outsourcingComment = OutsourcingComment.objects.get(
                 outsourcing__portfolio__user=user_id,
                 outsourcing__portfolio=portfolio_id,
-                outsourcing=outsourcing_id
+                outsourcing=outsourcing_id,
+                id=outsourcing_comment_id
             )
             return outsourcingComment
         except OutsourcingComment.DoesNotExist:
-            return Response({"error": "외주가 존재하지 않습니다."})
+            return Response({"error": "외주 댓글이 존재하지 않습니다."})
 
     def get(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체의 단일 comment 객체를 조회합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 단일 outsourcingComment 객체를 조회합니다.
         """
         return self.retrieve(request, *args, **kwargs)
 
@@ -37,21 +41,21 @@ class OutsourcingCommentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIVie
         """
         ...
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체의 단일 comment 객체를 수정합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 단일 outsourcingComment 객체를 수정합니다.
         """
         return self.partial_update(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체의 단일 comment 객체를 수정합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 단일 outsourcingComment 객체를 수정합니다.
         """
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 user 객체의 단일 portfolio 객체의 단일 outsourcing 객체의 단일 comment 객체를 삭제합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 단일 outsourcingComment 객체를 삭제합니다.
         """
         return self.destroy(request, *args, **kwargs)
 

@@ -3,6 +3,9 @@ from outsourcing.serializers import OutsourcingCommentSerializer
 from outsourcing.models import OutsourcingComment, Outsourcing
 
 
+# portfolios/{portfolio_id}/outsourcings/{outsourcing_id}/outsourcing_comments/
+# outsourcing FK
+# writer FK
 class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
     serializer_class = OutsourcingCommentSerializer
     ordering = ['id']
@@ -25,14 +28,14 @@ class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 portfolio 객체의 단일 outsourcing 객체의 모든 comment 객체들을 조회합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 모든 outsourcingComment 객체들을 조회합니다.
         """
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - 단일 portfolio 객체의 단일 outsourcing 객체의 단일 comment 객체를 생성합니다.
+        - 단일 portfolio 객체의 단일 outsourcing 객체의 단일 outsourcingComment 객체를 생성합니다.
         """
         return self.create(request, *args, **kwargs)
 
