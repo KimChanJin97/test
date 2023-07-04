@@ -4,22 +4,24 @@ from bookmark.serializers import BookmarkSerializer
 from rest_framework.response import Response
 
 
-# localhost:8000/bookmarks/{root_bookmark_id}
+# localhost:8000/works/{work_id}/bookmarks/{work_bookmark_id}
 # adder
 # work
-class RootBookmarkRetrieveDestroyAPIView(RetrieveDestroyAPIView):
-    lookup_url_kwarg = "root_bookmark_id"
+class WorkBookmarkRetrieveDestroyAPIView(RetrieveDestroyAPIView):
+    lookup_url_kwarg = "work_bookmark_id"
     queryset = Bookmark.objects.all()
     serializer_class = BookmarkSerializer
 
     def get_object(self):
         user_id = self.request.user.id
-        root_bookmark_id = self.kwargs['root_bookmark_id']
+        work_id = self.kwargs['work_id']
+        work_bookmark_id = self.kwargs['work_bookmark_id']
 
         try:
             bookmark = Bookmark.objects.get(
                 adder=user_id,
-                id=root_bookmark_id
+                work=work_id,
+                id=work_bookmark_id
             )
             return bookmark
         except Bookmark.DoesNotExist:
@@ -28,7 +30,7 @@ class RootBookmarkRetrieveDestroyAPIView(RetrieveDestroyAPIView):
     def get(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - root 페이지에 사용됩니다.
+        - root 페이지의 work 페이지에서 사용됩니다
         - 단일 user 객체의 단일 bookmark 객체를 조회합니다.
         """
         return self.retrieve(request, *args, **kwargs)
@@ -50,7 +52,7 @@ class RootBookmarkRetrieveDestroyAPIView(RetrieveDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         """
         [ 설명 ]
-        - root 페이지의 bookmark 페이지에서 사용됩니다.
+        - root 페이지의 work 페이지에서 사용됩니다
         - 단일 user 객체의 단일 bookmark 객체를 삭제합니다.
         """
         return self.destroy(request, *args, **kwargs)

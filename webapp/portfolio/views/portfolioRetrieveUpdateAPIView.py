@@ -21,11 +21,12 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = PortfolioSerializer
 
     def get_object(self):
-        # user_id = self.kwargs['user_id']
         user_id = self.request.user.id
         portfolio_id = self.kwargs['portfolio_id']
+
         try:
-            return Portfolio.objects.get(id=portfolio_id, user=user_id)
+            portfolio = Portfolio.objects.get(user=user_id, id=portfolio_id)
+            return portfolio
         except Portfolio.DoesNotExist:
             return Response({"error": "존재하지 않는 포트폴리오입니다."})
 

@@ -26,6 +26,8 @@ class RootBookmarkListAPIView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         """
-        루트 페이지에 띄울 모든 북마크 객체들을 조회합니다.
+        [ 설명 ]
+        root 페이지의 bookmark 페이지에서 사용됩니다.
+        단일 user 객체의 모든 bookmark 객체들을 조회합니다.
         """
         return self.list(request, *args, **kwargs)

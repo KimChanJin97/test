@@ -64,9 +64,9 @@ def kakaoCallback(request):
     kakao_account = profile_json.get("kakao_account")
 
     kakaoId = profile_json.get("id")
-    thumbnail_image = profile_json.get("properties").get("thumbnail_image")
+    kakao_thumbnail_url = profile_json.get("properties").get("thumbnail_image")
     print("====================================================================================================")
-    print(thumbnail_image)
+    print(kakao_thumbnail_url)
     email = kakao_account.get("email", None)
 
     if email is None:
@@ -90,7 +90,7 @@ def kakaoCallback(request):
     else:
         User(
             kakaoId=kakaoId,
-            thumbnail_image=thumbnail_image,
+            kakao_thumbnail_url=kakao_thumbnail_url,
             email=email,
         ).save()
         user_info = User.objects.get(kakaoId=kakaoId)

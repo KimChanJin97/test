@@ -1,9 +1,9 @@
 from django.urls import path
-from bookmark.views import BookmarkCreateAPIView, BookmarkRetrieveUpdateDestroyAPIView
+from bookmark.views import WorkBookmarkCreateAPIView, WorkBookmarkRetrieveDestroyAPIView
 
 app_name = 'bookmark'
 
 urlpatterns = [
-    path('', BookmarkCreateAPIView.as_view()),
-    path('<int:bookmark_id>/', BookmarkRetrieveUpdateDestroyAPIView.as_view()),
+    path('', WorkBookmarkCreateAPIView.as_view()),
+    path('<int:work_bookmark_id>/', WorkBookmarkRetrieveDestroyAPIView.as_view()),
 ]

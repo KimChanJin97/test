@@ -7,13 +7,15 @@ from work.models import Work
 # localhost:8000/works/{work_id}/bookmarks/
 # adder
 # work
-class RootBookmarkCreateAPIView(CreateAPIView):
+class WorkBookmarkCreateAPIView(CreateAPIView):
     serializer_class = BookmarkSerializer
     ordering = ['id']
 
     def post(self, request, *args, **kwargs):
         """
-        단일 유저 객체의 단일 북마크 객체을 생성합니다.
+        [ 설명 ]
+        - root 페이지의 work 페이지에서 사용됩니다
+        - 단일 user 객체의 단일 bookmark 객체를 생성합니다.
         """
         return self.create(request, *args, **kwargs)
 

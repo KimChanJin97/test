@@ -7,7 +7,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework import routers
 
-from bookmark.views import RootBookmarkListAPIView, RootBookmarkRetrieveDestroyAPIView, RootBookmarkCreateAPIView
+from bookmark.views import RootBookmarkListAPIView, RootBookmarkRetrieveDestroyAPIView, WorkBookmarkCreateAPIView, WorkBookmarkRetrieveDestroyAPIView
 from work.views import RootWorkRetrieveAPIView, RootWorkListAPIView
 
 # jazzmin settings
@@ -30,11 +30,12 @@ urlpatterns = [
     # root work
     path('works/', RootWorkListAPIView.as_view()),
     path('works/<int:work_id>', RootWorkRetrieveAPIView.as_view()),
-    # root work - root bookmark
-    path('works/<int:work_id>/bookmarks/', RootBookmarkCreateAPIView.as_view()),
-    path('works/<int:work_id>/bookmarks/<int:bookmark_id>', RootBookmarkRetrieveDestroyAPIView.as_view()),
-    # root bookmark
+    # root work - work bookmark
+    path('works/<int:work_id>/bookmarks/', WorkBookmarkCreateAPIView.as_view()),
+    path('works/<int:work_id>/bookmarks/<int:work_bookmark_id>', WorkBookmarkRetrieveDestroyAPIView.as_view()),
+    # root bookmark - root bookmark
     path('bookmarks/', RootBookmarkListAPIView.as_view()),
+    path('bookmarks/<int:root_bookmark_id>', RootBookmarkRetrieveDestroyAPIView.as_view()),
     # user
     path('users/', include('user.urls')),
     # portfolio

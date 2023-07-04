@@ -25,7 +25,7 @@ class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
                 id=outsourcing_id
             )
             return outsourcing
-        except outsourcing.DoesNotExist:
+        except Outsourcing.DoesNotExist:
             return Response({"error": "외주가 존재하지 않습니다."})
 
     def get(self, request, *args, **kwargs):
