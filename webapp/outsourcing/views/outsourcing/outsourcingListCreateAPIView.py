@@ -6,23 +6,22 @@ from outsourcing.serializers import OutsourcingSerializer
 from portfolio.models import Portfolio
 
 
-
 # portfolios/ <int:portfolio_id>/outsourcings/
 # portfolio FK
 class OutsourcingListCreateAPIView(ListCreateAPIView):
     serializer_class = OutsourcingSerializer
-    ordering = ['id']
+    ordering = ['created_at']
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):
             return Outsourcing.objects.none()
 
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
+        user_uuid = self.request.user.uuid
+        portfolio_uuid = self.kwargs['portfolio_uuid']
 
         queryset = Outsourcing.objects.filter(
-            portfolio__user=user_id,
-            portfolio=portfolio_id
+            portfolio__user=user_uuid,
+            portfolio=portfolio_uuid
         )
         return queryset
 
@@ -47,24 +46,22 @@ class OutsourcingListCreateAPIView(ListCreateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        # user_id = self.kwargs['user_id']
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
+        user_uuid = self.request.user.uuid
+        portfolio_uuid = self.kwargs['portfolio_uuid']
 
         portfolio = Portfolio.objects.get(
-            user=user_id,
-            id=portfolio_id
+            user=user_uuid,
+            uuid=portfolio_uuid
         )
         return portfolio
 
     def check_outsourcing_exists(self):
-        # user_id = self.kwargs['user_id']
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
+        user_uuid = self.request.user.uuid
+        portfolio_uuid = self.kwargs['portfolio_uuid']
 
         exists = Outsourcing.objects.filter(
-            portfolio__user=user_id,
-            portfolio=portfolio_id
+            portfolio__user=user_uuid,
+            portfolio=portfolio_uuid
         ).exists()
 
         return exists

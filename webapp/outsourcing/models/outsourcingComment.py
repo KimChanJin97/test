@@ -1,5 +1,6 @@
 from django.db import models
 from core.models import TimeStampModel
+import uuid
 
 
 class OutsourcingComment(TimeStampModel):
@@ -16,6 +17,12 @@ class OutsourcingComment(TimeStampModel):
         verbose_name = 'Outsourcing Comment'
         verbose_name_plural = 'Outsourcing Comments'
 
+    uuid = models.UUIDField(
+        verbose_name="외주 댓글 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     outsourcing = models.ForeignKey(
         'outsourcing.Outsourcing',
         verbose_name="외주",

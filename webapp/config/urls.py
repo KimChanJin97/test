@@ -29,13 +29,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # root work
     path('works/', RootWorkListAPIView.as_view()),
-    path('works/<int:work_id>', RootWorkRetrieveAPIView.as_view()),
+    path('works/<uuid:work_uuid>/', RootWorkRetrieveAPIView.as_view()),
     # root work - work bookmark
-    path('works/<int:work_id>/bookmarks/', WorkBookmarkCreateAPIView.as_view()),
-    path('works/<int:work_id>/bookmarks/<int:work_bookmark_id>', WorkBookmarkRetrieveDestroyAPIView.as_view()),
+    path('works/<uuid:work_uuid>/bookmarks/', WorkBookmarkCreateAPIView.as_view()),
+    path('works/<uuid:work_uuid>/bookmarks/<uuid:work_bookmark_uuid>/', WorkBookmarkRetrieveDestroyAPIView.as_view()),
     # root bookmark - root bookmark
     path('bookmarks/', RootBookmarkListAPIView.as_view()),
-    path('bookmarks/<int:root_bookmark_id>', RootBookmarkRetrieveDestroyAPIView.as_view()),
+    path('bookmarks/<uuid:root_bookmark_uuid>/', RootBookmarkRetrieveDestroyAPIView.as_view()),
     # user
     path('users/', include('user.urls')),
     # portfolio

@@ -9,20 +9,20 @@ from portfolio.models import Portfolio
 # portfolios/ <int:portfolio_id>/outsourcings/ <int:outsourcing_id>/
 # portfolio FK
 class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
-    lookup_url_kwarg = 'outsourcing_id'
+    lookup_url_kwarg = 'outsourcing_uuid'
     queryset = Outsourcing.objects.all()
     serializer_class = OutsourcingSerializer
 
     def get_object(self):
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
-        outsourcing_id = self.kwargs['outsourcing_id']
+        user_uuid = self.request.user.uuid
+        portfolio_uuid = self.kwargs['portfolio_uuid']
+        outsourcing_uuid = self.kwargs['outsourcing_uuid']
 
         try:
             outsourcing = Outsourcing.objects.get(
-                portfolio__user=user_id,
-                portfolio=portfolio_id,
-                id=outsourcing_id
+                portfolio__user=user_uuid,
+                portfolio=portfolio_uuid,
+                uuid=outsourcing_uuid
             )
             return outsourcing
         except Outsourcing.DoesNotExist:
@@ -54,12 +54,11 @@ class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        # user_id = self.kwargs['user_id']
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
+        user_uuid = self.request.user.uuid
+        portfolio_uuid = self.kwargs['portfolio_uuid']
 
         portfolio = Portfolio.objects.get(
-            user=user_id,
-            id=portfolio_id
+            user=user_uuid,
+            uuid=portfolio_uuid
         )
         return portfolio

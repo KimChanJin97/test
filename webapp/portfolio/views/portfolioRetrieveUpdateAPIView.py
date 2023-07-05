@@ -6,26 +6,21 @@ from portfolio.serializers import PortfolioSerializer
 from user.models import User
 
 
-# localhost:8000/portfolios/{portfolio_id}
+# /portfolios/{portfolio_uuid}
 # user <FK>
-# representative_image
-# description
-# certification
-# career
-# git
-# instagram
-# twitter
 class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
-    lookup_url_kwarg = 'portfolio_id'
+    lookup_url_kwarg = 'portfolio_uuid'
     queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
 
     def get_object(self):
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
+        user_uuid = self.request.user.uuid
+        portfolio_uuid = self.kwargs['portfolio_uuid']
 
         try:
-            portfolio = Portfolio.objects.get(user=user_id, id=portfolio_id)
+            portfolio = Portfolio.objects.get(
+                user=user_uuid,
+                uuid=portfolio_uuid)
             return portfolio
         except Portfolio.DoesNotExist:
             return Response({"error": "존재하지 않는 포트폴리오입니다."})
@@ -52,6 +47,8 @@ class PortfolioRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return self.update(request, *args, **kwargs)
 
     def perform_update(self, serializer):
-        user = User.objects.get(id=self.request.user.id)
+        user = User.objects.get(
+            uuid=self.request.user.uuid
+        )
         serializer.save(user=user)
 

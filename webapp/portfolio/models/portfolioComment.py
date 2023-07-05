@@ -1,7 +1,7 @@
 from django.db import models
 
 from core.models import TimeStampModel
-
+import uuid
 
 class PortfolioComment(TimeStampModel):
     SCORE_CHOICE = [
@@ -17,6 +17,12 @@ class PortfolioComment(TimeStampModel):
         verbose_name = 'Portfolio Comment'
         verbose_name_plural = 'Portfolio Comments'
 
+    uuid = models.UUIDField(
+        verbose_name="포트폴리오 댓글 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     portfolio = models.ForeignKey(
         'portfolio.Portfolio',
         verbose_name="포트폴리오",

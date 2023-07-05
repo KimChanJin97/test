@@ -1,13 +1,19 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-
+import uuid
 
 class PortfolioAbility(models.Model):
     class Meta:
-        db_table = 'ability'
-        verbose_name = 'Ability'
-        verbose_name_plural = 'Abilities'
+        db_table = 'portfolio ability'
+        verbose_name = 'Portfolio Ability'
+        verbose_name_plural = 'Portfolio Abilities'
 
+    uuid = models.UUIDField(
+        verbose_name="포트폴리오 능력 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     portfolio = models.ForeignKey(
         'portfolio.Portfolio',
         verbose_name='포트폴리오',

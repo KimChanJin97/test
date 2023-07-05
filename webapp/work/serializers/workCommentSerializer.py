@@ -6,7 +6,7 @@ from work.models import WorkComment
 class WorkCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkComment
-        fields = ['id',
+        fields = ['uuid',
                   'work',
                   'writer',
                   'comment',
@@ -14,7 +14,7 @@ class WorkCommentSerializer(serializers.ModelSerializer):
                   'created_at',
                   ]
         read_only_fields = [
-            'id',
+            'uuid',
             'work',
             'writer',
             'created_at',

@@ -4,19 +4,19 @@ from portfolio.serializers import PortfolioSerializer
 from portfolio.models import Portfolio
 
 
+# /portfolios/
 # TODO: 일단 포트폴리오 객체는 하나로 고정. POST 구현 안함
 class PortfolioListCreateAPIView(ListCreateAPIView):
     serializer_class = PortfolioSerializer
-    ordering = ['id']
+    ordering = ['created_at']
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):
             return Portfolio.objects.none() # 수정
 
-        # user_id = self.kwargs['user_id']
-        user_id = self.request.user.id
+        user_uuid = self.request.user.uuid
         queryset = Portfolio.objects.filter(
-            user=user_id
+            user=user_uuid
         )
         return queryset
 
@@ -44,7 +44,7 @@ class PortfolioListCreateAPIView(ListCreateAPIView):
 
     def check_portfolio_exists(self):
         exists = Portfolio.objects.filter(
-            user=self.request.user.id
+            user=self.request.user.uuid
         ).exists()
 
         return exists

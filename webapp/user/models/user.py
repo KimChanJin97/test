@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from multiselectfield import MultiSelectField
 from core.choices import JOB_CHOICES, INTERESTS
+import uuid
 
 
 class UserManager(BaseUserManager):
@@ -31,6 +32,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
+    uuid = models.UUIDField(
+        verbose_name="유저 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     kakaoId = models.IntegerField(
         verbose_name="카카오 id",
         null=True,

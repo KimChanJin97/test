@@ -2,9 +2,8 @@ from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from user.serializers import DjangoLoginSerializer
+from user.serializers import DjangoLoginSerializer, CustomTokenObtainPairSerializer
 
 
 class DjangoLoginAPIView(APIView):
@@ -20,7 +19,7 @@ class DjangoLoginAPIView(APIView):
         )
         if user is not None:
             serializer = DjangoLoginSerializer(user)
-            token = TokenObtainPairSerializer.get_token(user)
+            token = CustomTokenObtainPairSerializer.get_token(user)
             refresh_token = str(token)
             access_token = str(token.access_token)
             res = Response(

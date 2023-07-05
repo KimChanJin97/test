@@ -1,5 +1,8 @@
-from core.models import TimeStampModel
+import uuid
+
 from django.db import models
+
+from core.models import TimeStampModel
 
 
 class WorkComment(TimeStampModel):
@@ -16,6 +19,12 @@ class WorkComment(TimeStampModel):
         verbose_name = 'Work Comment'
         verbose_name_plural = 'Works Comment'
 
+    uuid = models.UUIDField(
+        verbose_name="작업물 댓글 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     work = models.ForeignKey(
         'work.Work',
         on_delete=models.CASCADE,
@@ -28,7 +37,7 @@ class WorkComment(TimeStampModel):
         verbose_name='댓글',
     )
     score = models.IntegerField(
-        verbose_name="외주 평점",
+        verbose_name="작업물 평점",
         choices=SCORE_CHOICE,
         default=3,
         null=False,

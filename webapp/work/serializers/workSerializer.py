@@ -20,8 +20,8 @@ class WorkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Work
-        fields = ['id', 'portfolio', 'images', 'field', 'description', 'created_at']
-        read_only_fields = ['id', 'portfolio', 'created_at', 'updated_at']
+        fields = ['uuid', 'portfolio', 'images', 'field', 'description', 'created_at']
+        read_only_fields = ['uuid', 'portfolio', 'created_at', 'updated_at']
 
     def create(self, validated_data):
         instance = Work.objects.create(**validated_data)

@@ -8,20 +8,18 @@ from outsourcing.models import OutsourcingComment, Outsourcing
 # writer FK
 class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
     serializer_class = OutsourcingCommentSerializer
-    ordering = ['id']
+    ordering = ['created_at']
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):
             return OutsourcingComment.objects.none()
 
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
-        outsourcing_id = self.kwargs['outsourcing_id']
+        portfolio_uuid = self.kwargs['portfolio_uuid']
+        outsourcing_uuid = self.kwargs['os_uuid']
 
         queryset = OutsourcingComment.objects.filter(
-            outsourcing__portfolio__user=user_id,
-            outsourcing__portfolio=portfolio_id,
-            outsourcing=outsourcing_id
+            outsourcing__portfolio=portfolio_uuid,
+            outsourcing=outsourcing_uuid
         )
         return queryset
 
@@ -44,14 +42,12 @@ class OutsourcingCommentListCreateAPIView(ListCreateAPIView):
         serializer.save(outsourcing=outsourcing, writer=self.request.user)
 
     def get_outsourcing(self):
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
-        outsourcing_id = self.kwargs['outsourcing_id']
+        portfolio_uuid = self.kwargs['portfolio_uuid']
+        outsourcing_uuid = self.kwargs['os_uuid']
 
         outsourcing = Outsourcing.objects.get(
-            portfolio__user=user_id,
-            portfolio=portfolio_id,
-            id=outsourcing_id
+            portfolio=portfolio_uuid,
+            uuid=outsourcing_uuid
         )
         return outsourcing
 

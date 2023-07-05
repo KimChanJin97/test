@@ -1,14 +1,16 @@
 from rest_framework import serializers
 
-from portfolio.models import Portfolio
+from portfolio.models import PortfolioAbility
 
 
 class PortfolioAbilitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Portfolio
-        fields = ['portfolio',
+        model = PortfolioAbility
+        fields = ['uuid',
+                  'portfolio',
                   'ability',
                   'mastery']
         read_only_fields = [
-            'portfolio'
+            'uuid',
+            'portfolio',
         ]

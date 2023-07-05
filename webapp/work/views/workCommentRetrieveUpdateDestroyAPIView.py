@@ -5,26 +5,24 @@ from work.models import Work, WorkComment
 from work.serializers import WorkCommentSerializer
 
 
-# portfolios/{portfolio_id}/works/{work_id}/work_comments/{work_comment_id}
+# portfolios/{portfolio_uuid}/works/{work_uuid}/work_comments/{work_comment_uuid}
 # work FK
 # writer FK
 class WorkCommentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    lookup_url_kwarg = 'work_comment_id'
+    lookup_url_kwarg = 'work_comment_uuid'
     queryset = Work.objects.all()
     serializer_class = WorkCommentSerializer
 
     def get_object(self):
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
-        work_id = self.kwargs['work_id']
-        work_comment_id = self.kwargs['work_comment_id']
+        portfolio_uuid = self.kwargs['portfolio_uuid']
+        work_uuid = self.kwargs['work_uuid']
+        work_comment_uuid = self.kwargs['work_comment_uuid']
 
         try:
             workComment = WorkComment.objects.get(
-                work__portfolio__user=user_id,
-                work__portfolio=portfolio_id,
-                work=work_id,
-                id=work_comment_id
+                work__portfolio=portfolio_uuid,
+                work=work_uuid,
+                uuid=work_comment_uuid
             )
             return workComment
         except WorkComment.DoesNotExist:
@@ -64,13 +62,11 @@ class WorkCommentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         serializer.save(work=work, writer=self.request.user)
 
     def get_work(self):
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
-        work_id = self.kwargs['work_id']
+        portfolio_uuid = self.kwargs['portfolio_uuid']
+        work_uuid = self.kwargs['work_uuid']
 
         work = Work.objects.get(
-            portfolio__user=user_id,
-            portfolio=portfolio_id,
-            id=work_id
+            portfolio=portfolio_uuid,
+            uuid=work_uuid
         )
         return work

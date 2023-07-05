@@ -9,17 +9,17 @@ from rest_framework.response import Response
 # work
 class RootBookmarkListAPIView(ListAPIView):
     serializer_class = BookmarkSerializer
-    ordering = ['id']
+    ordering = ['created_at']
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):
             return Bookmark.objects.none()
 
         try:
-            adder = self.request.user.id
+            user = self.request.user.uuid
             queryset = Bookmark.objects.filter(
-                adder=adder,
-            ).order_by('id')
+                user=user,
+            ).order_by('created_at')
             return queryset
         except Bookmark.DoesNotExist:
             return Response({"error": "북마크가 존재하지 않습니다."})

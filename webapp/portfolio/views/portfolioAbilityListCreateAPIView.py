@@ -1,26 +1,22 @@
 from rest_framework.generics import ListCreateAPIView
 
-from work.models import WorkComment, Work
-from work.serializers import WorkCommentSerializer
+from portfolio.models import PortfolioAbility, Portfolio
+from portfolio.serializers import PortfolioAbilitySerializer
 
 
-# portfolios/{portfolio_uuid}/works/{work_uuid}/work_comments/
-# work FK
-# writer FK
-class WorkCommentListCreateAPIView(ListCreateAPIView):
-    serializer_class = WorkCommentSerializer
+# localhost:8000/portfolios/<int:portfolio_uuid>/portfolio_abilities/
+class PortfolioAbilityListCreateAPIView(ListCreateAPIView):
+    serializer_class = PortfolioAbilitySerializer
     ordering = ['created_at']
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):
-            return WorkComment.objects.none()
+            return PortfolioAbility.objects.none()
 
         portfolio_uuid = self.kwargs['portfolio_uuid']
-        work_uuid = self.kwargs['work_uuid']
 
-        queryset = WorkComment.objects.filter(
-            work__portfolio=portfolio_uuid,
-            work=work_uuid
+        queryset = PortfolioAbility.objects.filter(
+            portfolio=portfolio_uuid,
         )
         return queryset
 
@@ -39,15 +35,13 @@ class WorkCommentListCreateAPIView(ListCreateAPIView):
         return self.create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        work = self.get_work()
-        serializer.save(work=work, writer=self.request.user)
+        portfolio = self.get_portfolio()
+        serializer.save(portfolio=portfolio)
 
-    def get_work(self):
+    def get_portfolio(self):
         portfolio_uuid = self.kwargs['portfolio_uuid']
-        work_uuid = self.kwargs['work_uuid']
 
-        work = Work.objects.get(
-            portfolio=portfolio_uuid,
-            uuid=work_uuid
+        portfolio = Portfolio.objects.get(
+            uuid=portfolio_uuid,
         )
-        return work
+        return portfolio

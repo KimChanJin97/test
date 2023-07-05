@@ -8,20 +8,20 @@ from rest_framework.response import Response
 # adder
 # work
 class WorkBookmarkRetrieveDestroyAPIView(RetrieveDestroyAPIView):
-    lookup_url_kwarg = "work_bookmark_id"
+    lookup_url_kwarg = "work_bookmark_uuid"
     queryset = Bookmark.objects.all()
     serializer_class = BookmarkSerializer
 
     def get_object(self):
-        user_id = self.request.user.id
-        work_id = self.kwargs['work_id']
-        work_bookmark_id = self.kwargs['work_bookmark_id']
+        user_uuid = self.request.user.uuid
+        work_uuid = self.kwargs['work_uuid']
+        work_bookmark_uuid = self.kwargs['work_bookmark_uuid']
 
         try:
             bookmark = Bookmark.objects.get(
-                adder=user_id,
-                work=work_id,
-                id=work_bookmark_id
+                user=user_uuid,
+                work=work_uuid,
+                uuid=work_bookmark_uuid
             )
             return bookmark
         except Bookmark.DoesNotExist:

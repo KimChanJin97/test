@@ -9,13 +9,13 @@ from work.models import Work
 # description
 class RootWorkListAPIView(ListAPIView):
     serializer_class = WorkSerializer
-    ordering = ['id']
+    ordering = ['created_at']
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):
             return Work.objects.none()
 
-        queryset = Work.objects.all().order_by('id')
+        queryset = Work.objects.all()
         return queryset
 
     def get(self, request, *args, **kwargs):

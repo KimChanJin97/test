@@ -6,7 +6,7 @@ from outsourcing.models import OutsourcingComment
 class OutsourcingCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = OutsourcingComment
-        fields = ['id',
+        fields = ['uuid',
                   'outsourcing',
                   'writer',
                   'comment',
@@ -14,7 +14,7 @@ class OutsourcingCommentSerializer(serializers.ModelSerializer):
                   'created_at',
                   ]
         read_only_fields = [
-            'id',
+            'uuid',
             'outsourcing',
             'writer',
             'created_at',

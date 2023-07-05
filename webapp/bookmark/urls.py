@@ -5,5 +5,5 @@ app_name = 'bookmark'
 
 urlpatterns = [
     path('', WorkBookmarkCreateAPIView.as_view()),
-    path('<int:work_bookmark_id>/', WorkBookmarkRetrieveDestroyAPIView.as_view()),
+    path('<uuid:work_bookmark_uuid>/', WorkBookmarkRetrieveDestroyAPIView.as_view()),
 ]

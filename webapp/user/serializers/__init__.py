@@ -1,3 +1,4 @@
 from .djangoLoginSerializer import DjangoLoginSerializer
 from .djangoRegisterSerializer import DjangoRegisterSerializer
 from .userSerializer import UserSerializer
+from .customTokenObtainPairSerializer import CustomTokenObtainPairSerializer

@@ -1,7 +1,9 @@
+import uuid
+
 from django.db import models
 
-from core.models import TimeStampModel
 from core.choices import INTERESTS
+from core.models import TimeStampModel
 
 
 class Work(TimeStampModel):
@@ -10,6 +12,12 @@ class Work(TimeStampModel):
         verbose_name = 'Work'
         verbose_name_plural = 'Works'
 
+    uuid = models.UUIDField(
+        verbose_name="작업물 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     portfolio = models.ForeignKey(
         'portfolio.Portfolio',
         verbose_name="포트폴리오",
@@ -27,6 +35,7 @@ class Work(TimeStampModel):
         null=False,
         max_length=300,
     )
+
 
 def image_upload_path(instance, filename):
     return f'{instance.work.portfolio.user.email}/{filename}'

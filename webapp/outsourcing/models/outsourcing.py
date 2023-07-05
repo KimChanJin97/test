@@ -1,7 +1,10 @@
-from django.db import models
-from core.models import TimeStampModel
+import uuid
+
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
+
 from core.choices import INTERESTS
+from core.models import TimeStampModel
 
 
 class Outsourcing(TimeStampModel):
@@ -23,6 +26,12 @@ class Outsourcing(TimeStampModel):
         verbose_name = 'Outsourcing'
         verbose_name_plural = 'Outsourcing'
 
+    uuid = models.UUIDField(
+        verbose_name="외주 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     portfolio = models.ForeignKey(
         'portfolio.Portfolio',
         verbose_name="포트폴리오",

@@ -7,4 +7,4 @@ User = get_user_model()
 class DjangoLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password', 'thumbnail_image')
+        fields = ('uuid', 'email', 'password', 'thumbnail_image')

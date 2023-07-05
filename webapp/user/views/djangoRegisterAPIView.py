@@ -1,12 +1,8 @@
+from rest_framework import status
 from rest_framework.response import Response
-from rest_framework import status, generics
 from rest_framework.views import APIView
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from user.serializers import DjangoRegisterSerializer
+from user.serializers import DjangoRegisterSerializer, CustomTokenObtainPairSerializer
 
 
 class DjangoRegisterAPIView(APIView):
@@ -21,7 +17,7 @@ class DjangoRegisterAPIView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             # jwt token 접근해주기
-            token = TokenObtainPairSerializer.get_token(user)
+            token = CustomTokenObtainPairSerializer.get_token(user)
             refresh_token = str(token)
             access_token = str(token.access_token)
             res = Response(

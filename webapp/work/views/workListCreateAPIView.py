@@ -11,20 +11,17 @@ from rest_framework.response import Response
 # description
 class WorkListCreateAPIView(ListCreateAPIView):
     serializer_class = WorkSerializer
-    ordering = ['id']
+    ordering = ['created_at']
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):
             return Work.objects.none()
 
-        # user_id = self.kwargs['user_id']
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
+        portfolio_uuid = self.kwargs['portfolio_uuid']
         try:
             queryset = Work.objects.filter(
-                portfolio__user=user_id,
-                portfolio=portfolio_id
-            ).order_by('id')
+                portfolio=portfolio_uuid
+            )
             return queryset
         except Work.DoesNotExist:
             return Response({"error": "작업물이 존재하지 않습니다."})
@@ -48,14 +45,11 @@ class WorkListCreateAPIView(ListCreateAPIView):
         serializer.save(portfolio=portfolio)
 
     def get_portfolio(self):
-        # user_id = self.kwargs['user_id']
-        user_id = self.request.user.id
-        portfolio_id = self.kwargs['portfolio_id']
+        portfolio_uuid = self.kwargs['portfolio_uuid']
 
         try:
             portfolio = Portfolio.objects.get(
-                user=user_id,
-                id=portfolio_id
+                uuid=portfolio_uuid
             )
             return portfolio
         except Portfolio.DoesNotExist:

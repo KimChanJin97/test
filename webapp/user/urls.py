@@ -16,5 +16,5 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view()),
     # user
     path('', UserListAPIView.as_view()),
-    path('<int:user_id>/', UserRetrieveUpdateAPIView.as_view()),
+    path('<uuid:user_uuid>/', UserRetrieveUpdateAPIView.as_view()),
 ]

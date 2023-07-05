@@ -51,22 +51,12 @@ def kakaoCallback(request):
         'code': code,
     }
     token_response = requests.post(url, data=res)
-    print("token_response", end="")
-    print(token_response.json())
     access_token = token_response.json().get('access_token')
-    print("access_token", end="")
-    print(access_token)
-    user_info_response = requests.get('https://kapi.kakao.com/v2/user/me',
-                                      headers={"Authorization": f'Bearer {access_token}'})
+    user_info_response = requests.get('https://kapi.kakao.com/v2/user/me',headers={"Authorization": f'Bearer {access_token}'})
     profile_json = user_info_response.json()
-    print("====================================================================================================")
-    print(profile_json)
     kakao_account = profile_json.get("kakao_account")
-
     kakaoId = profile_json.get("id")
     kakao_thumbnail_url = profile_json.get("properties").get("thumbnail_image")
-    print("====================================================================================================")
-    print(kakao_thumbnail_url)
     email = kakao_account.get("email", None)
 
     if email is None:

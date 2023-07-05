@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 
@@ -11,6 +13,12 @@ class Portfolio(models.Model):
         verbose_name = 'Portfolio'
         verbose_name_plural = 'Portfolios'
 
+    uuid = models.UUIDField(
+        verbose_name="포트폴리오 고유번호",
+        primary_key=True,
+        null=False,
+        default=uuid.uuid4
+    )
     user = models.ForeignKey(
         'user.User',
         verbose_name="유저",

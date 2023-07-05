@@ -7,7 +7,7 @@ User = get_user_model()
 class DjangoRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password', 'thumbnail_image')
+        fields = ('uuid', 'email', 'password', 'thumbnail_image')
 
     def create(self, validated_data):
         email = validated_data.get('email')
