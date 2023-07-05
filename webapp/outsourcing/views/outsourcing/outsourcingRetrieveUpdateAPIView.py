@@ -9,14 +9,14 @@ from portfolio.models import Portfolio
 # portfolios/ <int:portfolio_id>/outsourcings/ <int:outsourcing_id>/
 # portfolio FK
 class OutsourcingRetrieveUpdateAPIView(RetrieveUpdateAPIView):
-    lookup_url_kwarg = 'outsourcing_uuid'
+    lookup_url_kwarg = 'os_uuid'
     queryset = Outsourcing.objects.all()
     serializer_class = OutsourcingSerializer
 
     def get_object(self):
         user_uuid = self.request.user.uuid
         portfolio_uuid = self.kwargs['portfolio_uuid']
-        outsourcing_uuid = self.kwargs['outsourcing_uuid']
+        outsourcing_uuid = self.kwargs['os_uuid']
 
         try:
             outsourcing = Outsourcing.objects.get(
