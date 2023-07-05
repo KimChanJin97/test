@@ -35,20 +35,6 @@ class WorkBookmarkRetrieveDestroyAPIView(RetrieveDestroyAPIView):
         """
         return self.retrieve(request, *args, **kwargs)
 
-    # def patch(self, request, *args, **kwargs):
-    #     """
-    #     [ 설명 ]
-    #     - 단일 user 객체의 단일 bookmark 객체를 수정합니다.
-    #     """
-    #     return self.partial_update(request, *args, **kwargs)
-    #
-    # def put(self, request, *args, **kwargs):
-    #     """
-    #     [ 설명 ]
-    #     - 단일 user 객체의 단일 bookmark 객체를 수정합니다.
-    #     """
-    #     return self.update(request, *args, **kwargs)
-
     def delete(self, request, *args, **kwargs):
         """
         [ 설명 ]
@@ -57,15 +43,3 @@ class WorkBookmarkRetrieveDestroyAPIView(RetrieveDestroyAPIView):
         """
         return self.destroy(request, *args, **kwargs)
 
-    # def perform_update(self, serializer):
-    #     adder = self.request.user
-    #     work = self.get_work()
-    #     serializer.save(adder=adder, work=work)
-    #
-    # def get_work(self):
-    #     work_id = self.kwargs['work_id']
-    #     try:
-    #         work = Work.objects.get(id=work_id)
-    #         return work
-    #     except Work.DoesNotExist:
-    #         return Response({"error": "작업물이 존재하지 않습니다."})

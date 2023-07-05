@@ -1,1 +1,1 @@
-from .bookmarkSerializer import BookmarkSerializer
+from .bookmarkListSerializer import BookmarkSerializer

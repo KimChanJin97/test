@@ -1,4 +1,4 @@
 from .rootBookmarkListAPIView import RootBookmarkListAPIView
 from .rootBookmarkRetrieveDestroyAPIView import RootBookmarkRetrieveDestroyAPIView
-from .workBookmarkCreateAPIView import WorkBookmarkCreateAPIView
+from .workBookmarkListCreateAPIView import WorkBookmarkListCreateAPIView
 from .workBookmarkRetrieveDestroyAPIView import WorkBookmarkRetrieveDestroyAPIView

@@ -1,15 +1,34 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from bookmark.serializers import BookmarkSerializer
+from bookmark.models import Bookmark
 from work.models import Work
-
 
 # localhost:8000/works/{work_uuid}/bookmarks/
 # adder
 # work
-class WorkBookmarkCreateAPIView(CreateAPIView):
+class WorkBookmarkListCreateAPIView(ListCreateAPIView):
     serializer_class = BookmarkSerializer
     ordering = ['created_at']
+
+    def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Bookmark.objects.none()
+
+        user_uuid = self.request.user.uuid
+        work_uuid = self.kwargs['work_uuid']
+
+        queryset = Bookmark.objects.filter(
+            user=user_uuid,
+            work=work_uuid
+        )
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        """
+        단일 user 객체의 단일 portfolio 객체의 모든 outsourcing 객체들을 조회합니다.
+        """
+        return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """
