@@ -35,6 +35,10 @@ class Work(TimeStampModel):
         null=False,
         max_length=300,
     )
+    likes = models.ManyToManyField(
+        'user.User',
+        related_name='like_works'
+    )
 
 
 def image_upload_path(instance, filename):

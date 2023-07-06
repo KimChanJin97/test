@@ -4,3 +4,4 @@ from .workListCreateAPIView import WorkListCreateAPIView
 from .workRetrieveUpdateDestroyAPIView import WorkRetrieveUpdateDestroyAPIView
 from .workCommentListCreateAPIView import WorkCommentListCreateAPIView
 from .workCommentRetrieveUpdateDestroyAPIView import WorkCommentRetrieveUpdateDestroyAPIView
+from .workLikeListCreateAPIView import WorkLikeListCreateAPIView

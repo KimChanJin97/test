@@ -1,3 +1,2 @@
-from .workSerializer import WorkSerializer
-from .workCommentSerializer import WorkCommentSerializer
+from .workSerializer import WorkSerializer, WorkCommentSerializer, WorkLikeSerializer
 

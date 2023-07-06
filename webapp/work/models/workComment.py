@@ -17,7 +17,7 @@ class WorkComment(TimeStampModel):
     class Meta:
         db_table = 'work comment'
         verbose_name = 'Work Comment'
-        verbose_name_plural = 'Works Comment'
+        verbose_name_plural = 'Works Comments'
 
     uuid = models.UUIDField(
         verbose_name="작업물 댓글 고유번호",

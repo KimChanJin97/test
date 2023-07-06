@@ -8,7 +8,7 @@ from rest_framework import permissions
 from rest_framework import routers
 
 from bookmark.views import RootBookmarkListAPIView, RootBookmarkRetrieveDestroyAPIView, WorkBookmarkListCreateAPIView, WorkBookmarkRetrieveDestroyAPIView
-from work.views import RootWorkRetrieveAPIView, RootWorkListAPIView
+from work.views import RootWorkRetrieveAPIView, RootWorkListAPIView, WorkLikeListCreateAPIView
 
 # jazzmin settings
 routers = routers.DefaultRouter()
@@ -30,6 +30,8 @@ urlpatterns = [
     # root work
     path('works/', RootWorkListAPIView.as_view()),
     path('works/<uuid:work_uuid>/', RootWorkRetrieveAPIView.as_view()),
+    # root work - like
+    path("works/<uuid:work_uuid>/likes/", WorkLikeListCreateAPIView.as_view()),
     # root work - work bookmark
     path('works/<uuid:work_uuid>/bookmarks/', WorkBookmarkListCreateAPIView.as_view()),
     path('works/<uuid:work_uuid>/bookmarks/<uuid:work_bookmark_uuid>/', WorkBookmarkRetrieveDestroyAPIView.as_view()),
