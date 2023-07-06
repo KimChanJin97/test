@@ -1,6 +1,21 @@
 from rest_framework.generics import ListAPIView
 from work.serializers import WorkSerializer
 from work.models import Work
+from django.db.models import Count
+import django_filters
+from core.choices import INTERESTS
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+from config.pagination import DefaultPagination
+from django.db.models import Q
+
+
+class WorkFilter(django_filters.FilterSet):
+    field = django_filters.MultipleChoiceFilter(choices=INTERESTS)
+
+    class Meta:
+        model = Work
+        fields = ['field']
 
 
 # localhost:8000/works
@@ -10,6 +25,11 @@ from work.models import Work
 class RootWorkListAPIView(ListAPIView):
     serializer_class = WorkSerializer
     ordering = ['created_at']
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_class = WorkFilter
+    search_fields = ['description']
+    pagination_class = DefaultPagination
+
 
     def get_queryset(self):
         if getattr(self, "swagger_fake_view", False):

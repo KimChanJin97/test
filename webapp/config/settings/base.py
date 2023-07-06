@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # multiselect
     'multiselectfield',
+    # django-filter
+    'django_filters',
 ]
 
 REST_FRAMEWORK = {

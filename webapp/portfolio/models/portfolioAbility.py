@@ -9,7 +9,7 @@ class PortfolioAbility(models.Model):
         verbose_name_plural = 'Portfolio Abilities'
 
     uuid = models.UUIDField(
-        verbose_name="포트폴리오 능력 고유번호",
+        verbose_name="포트폴리오 타임라인 고유번호",
         primary_key=True,
         null=False,
         default=uuid.uuid4

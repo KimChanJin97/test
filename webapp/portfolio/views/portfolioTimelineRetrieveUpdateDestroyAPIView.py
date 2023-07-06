@@ -2,26 +2,26 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 
 from portfolio.models import Portfolio
-from portfolio.models import PortfolioAbility
-from portfolio.serializers import PortfolioAbilitySerializer
+from portfolio.models import PortfolioTimeline
+from portfolio.serializers import PortfolioTimelineSerializer
 
 
 # localhost:8000/portfolios/<int:portfolio_uuid>/portfolio_abilities/<int:portfolio_ability_uuid>/
-class PortfolioAbilityRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    lookup_url_kwarg = 'portfolio_ability_uuid'
-    queryset = PortfolioAbility.objects.all()
-    serializer_class = PortfolioAbilitySerializer
+class PortfolioTimelineRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    lookup_url_kwarg = 'portfolio_timeline_uuid'
+    queryset = PortfolioTimeline.objects.all()
+    serializer_class = PortfolioTimelineSerializer
 
     def get_object(self):
-        portfolio_ability_uuid = self.kwargs['portfolio_ability_uuid']
+        portfolio_timeline_uuid = self.kwargs['portfolio_timeline_uuid']
 
         try:
-            portfolioAbility = PortfolioAbility.objects.get(
-                uuid=portfolio_ability_uuid
+            portfolio_timeline = PortfolioTimeline.objects.get(
+                uuid=portfolio_timeline_uuid
             )
-            return portfolioAbility
-        except PortfolioAbility.DoesNotExist:
-            return Response({"error": "외주 댓글이 존재하지 않습니다."})
+            return portfolio_timeline
+        except PortfolioTimeline.DoesNotExist:
+            return Response({"error": "외주 타임라인이 존재하지 않습니다."})
 
     def get(self, request, *args, **kwargs):
         """
