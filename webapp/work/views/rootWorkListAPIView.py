@@ -1,13 +1,11 @@
 from rest_framework.generics import ListAPIView
-from work.serializers import WorkSerializer
+from work.serializers import RootWorkSerializer
 from work.models import Work
-from django.db.models import Count
 import django_filters
 from core.choices import INTERESTS
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from config.pagination import DefaultPagination
-from django.db.models import Q
 
 
 class WorkFilter(django_filters.FilterSet):
@@ -23,7 +21,7 @@ class WorkFilter(django_filters.FilterSet):
 # field
 # description
 class RootWorkListAPIView(ListAPIView):
-    serializer_class = WorkSerializer
+    serializer_class = RootWorkSerializer
     ordering = ['created_at']
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_class = WorkFilter
