@@ -44,6 +44,11 @@ class Outsourcing(TimeStampModel):
         max_length=500,
         null=False,
     )
+    title = models.CharField(
+        verbose_name="외주 제목",
+        max_length=100,
+        null=False,
+    )
     original_file_provided = models.BooleanField(
         verbose_name='원본파일제공여부',
         null=False,
