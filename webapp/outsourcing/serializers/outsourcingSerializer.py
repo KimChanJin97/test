@@ -9,6 +9,7 @@ class OutsourcingSerializer(serializers.ModelSerializer):
         fields = ['uuid',
                   'portfolio',
                   'field',
+                  'title',
                   'original_file_provided',
                   'commercial_use_allowed',
                   'additional_modification_allowed',
